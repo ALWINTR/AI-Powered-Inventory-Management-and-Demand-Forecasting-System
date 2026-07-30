@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Purchase Recommendations</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ==========================================
+NAVBAR
+========================================== -->
+
+<nav class="navbar navbar-dark bg-dark">
+
+<div class="container-fluid">
+
+<a class="navbar-brand">
+
+🛒 Purchase Recommendation
+
+</a>
+
+<div>
+
+<a href="/dashboard" class="btn btn-primary">
+
+Dashboard
+
+</a>
+
+<a href="/download_predictions" class="btn btn-success">
+
+Download Excel
+
+</a>
+
+<button
+class="btn btn-warning"
+onclick="exportTable('purchaseTable','purchase_list.csv')">
+
+Export CSV
+
+</button>
+
+<a href="/logout" class="btn btn-danger">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- ==========================================
+SUMMARY CARDS
+========================================== -->
+
+<div class="container-fluid mt-4">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="card border-primary shadow">
+
+<div class="card-body text-center">
+
+<h6>Total Purchase Items</h6>
+
+<h2>
+
+{{ items|length }}
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-success shadow">
+
+<div class="card-body text-center">
+
+<h6>Total Purchase Qty</h6>
+
+<h2 id="totalPurchase">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-danger shadow">
+
+<div class="card-body text-center">
+
+<h6>Critical Items</h6>
+
+<h2 id="criticalCount">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-warning shadow">
+
+<div class="card-body text-center">
+
+<h6>High Priority</h6>
+
+<h2 id="highPriority">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+PURCHASE TABLE
+========================================== -->
+
+<div class="container-fluid mt-3">
+
+<div class="card shadow">
+
+<div class="card-header bg-warning">
+
+<h4>
+
+Purchase Planning
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="table-responsive">
+
+<table
+id="purchaseTable"
+class="table table-bordered table-hover table-striped">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Item</th>
+
+<th>Unit</th>
+
+<th>Current Stock</th>
+
+<th>Next Month Sales</th>
+
+<th>Safety Stock</th>
+
+<th>Reorder Level</th>
+
+<th>Purchase Qty</th>
+
+<th>Priority</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for row in items %}
+
+<tr>
+
+<td>{{ row.Itemcode }}</td>
+
+<td>{{ row.Unit }}</td>
+
+<td>{{ row.Current_Stock }}</td>
+
+<td>{{ row.Next_Month }}</td>
+
+<td>{{ row.Safety_Stock }}</td>
+
+<td>{{ row.Reorder_Level }}</td>
+
+<td>
+
+<strong class="text-danger">
+
+{{ row.Purchase_Qty }}
+
+</strong>
+
+</td>
+
+<td>
+
+{% if row.Priority=="Critical" %}
+
+<span class="badge bg-danger">
+
+Critical
+
+</span>
+
+{% elif row.Priority=="High" %}
+
+<span class="badge bg-warning text-dark">
+
+High
+
+</span>
+
+{% else %}
+
+<span class="badge bg-info">
+
+Medium
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<span class="badge bg-warning text-dark">
+
+{{ row.Status }}
+
+</span>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ==========================================
+PURCHASE SUMMARY
+========================================== -->
+
+<div class="container-fluid mt-4">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-header bg-success text-white">
+
+Purchase Summary
+
+</div>
+
+<div class="card-body">
+
+<table class="table">
+
+<tr>
+
+<th>Total Purchase Items</th>
+
+<td>
+
+{{ items|length }}
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>Total Purchase Quantity</th>
+
+<td id="purchaseQty">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>Critical Items</th>
+
+<td id="criticalItems">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>High Priority Items</th>
+
+<td id="highItems">
+
+0
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-header bg-primary text-white">
+
+Actions
+
+</div>
+
+<div class="card-body">
+
+<a href="/run_prediction"
+
+class="btn btn-success w-100 mb-2">
+
+<i class="fas fa-robot"></i>
+
+Run AI Prediction
+
+</a>
+
+<button
+
+class="btn btn-warning w-100 mb-2"
+
+onclick="window.print()">
+
+<i class="fas fa-print"></i>
+
+Print Purchase Order
+
+</button>
+
+<button
+
+class="btn btn-info w-100 mb-2"
+
+onclick="exportTable('purchaseTable','purchase_order.csv')">
+
+<i class="fas fa-file-csv"></i>
+
+Export CSV
+
+</button>
+
+<a href="/dashboard"
+
+class="btn btn-dark w-100">
+
+<i class="fas fa-home"></i>
+
+Back to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+FOOTER
+========================================== -->
+
+<footer class="footer mt-5">
+
+<p>
+
+© 2026 AI Inventory Management System
+
+</p>
+
+</footer>
+
+<!-- ==========================================
+JAVASCRIPT
+========================================== -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    $("#purchaseTable").DataTable({
+
+        responsive:true,
+
+        pageLength:15,
+
+        scrollX:true,
+
+        order:[[6,"desc"]]
+
+    });
+
+    calculatePurchaseStats();
+
+});
+
+
+function calculatePurchaseStats(){
+
+    let totalQty = 0;
+
+    let critical = 0;
+
+    let high = 0;
+
+    $("#purchaseTable tbody tr").each(function(){
+
+        const qty = parseFloat($(this).find("td").eq(6).text()) || 0;
+
+        const priority = $(this).find("td").eq(7).text().trim();
+
+        totalQty += qty;
+
+        if(priority === "Critical"){
+
+            critical++;
+
+        }
+
+        if(priority === "High"){
+
+            high++;
+
+        }
+
+    });
+
+    $("#totalPurchase").text(totalQty.toFixed(0));
+
+    $("#purchaseQty").text(totalQty.toFixed(0));
+
+    $("#criticalCount").text(critical);
+
+    $("#criticalItems").text(critical);
+
+    $("#highPriority").text(high);
+
+    $("#highItems").text(high);
+
+}
+
+
+/* ==========================================
+AUTO REFRESH
+========================================== */
+
+setInterval(function(){
+
+    fetch("/check_update")
+
+    .then(response=>response.json())
+
+    .then(data=>{
+
+        if(data.updated){
+
+            location.reload();
+
+        }
+
+    });
+
+},30000);
+
+</script>
+
+</body>
+
+</html>

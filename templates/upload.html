@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Upload Inventory</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ==========================================
+NAVBAR
+========================================== -->
+
+<nav class="navbar navbar-dark bg-dark">
+
+<div class="container-fluid">
+
+<a class="navbar-brand">
+
+📤 Upload Inventory Excel
+
+</a>
+
+<div>
+
+<a href="/dashboard" class="btn btn-primary">
+
+Dashboard
+
+</a>
+
+<a href="/download_predictions" class="btn btn-success">
+
+Latest Prediction
+
+</a>
+
+<a href="/logout" class="btn btn-danger">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- ==========================================
+UPLOAD
+========================================== -->
+
+<div class="container mt-5">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="card shadow">
+
+<div class="card-header bg-primary text-white">
+
+<h3>
+
+Upload Inventory File
+
+</h3>
+
+</div>
+
+<div class="card-body">
+
+{% with messages=get_flashed_messages() %}
+
+{% if messages %}
+
+<div class="alert alert-success">
+
+{{ messages[0] }}
+
+</div>
+
+{% endif %}
+
+{% endwith %}
+
+<form
+
+id="uploadForm"
+
+method="POST"
+
+enctype="multipart/form-data">
+
+<div
+
+class="upload-box"
+
+id="dropArea">
+
+<i class="fas fa-file-excel fa-5x text-success mb-3"></i>
+
+<h4>
+
+Drag & Drop Excel File
+
+</h4>
+
+<p>
+
+or
+
+</p>
+
+<input
+
+type="file"
+
+class="form-control"
+
+name="file"
+
+id="fileInput"
+
+accept=".xlsx,.xls"
+
+required>
+
+</div>
+
+<br>
+
+<div class="progress"
+
+style="height:25px; display:none;"
+
+id="progressContainer">
+
+<div
+
+class="progress-bar progress-bar-striped progress-bar-animated"
+
+role="progressbar"
+
+style="width:0%;"
+
+id="progressBar">
+
+0%
+
+</div>
+
+</div>
+
+<br>
+
+<div class="d-grid">
+
+<button
+
+type="submit"
+
+class="btn btn-success btn-lg"
+
+id="uploadButton">
+
+<i class="fas fa-upload"></i>
+
+Upload & Run AI Prediction
+
+</button>
+
+</div>
+
+</form>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<a
+
+href="/run_prediction"
+
+class="btn btn-warning w-100">
+
+Run Prediction
+
+</a>
+
+</div>
+
+<div class="col-md-4">
+
+<a
+
+href="/download_inventory"
+
+class="btn btn-primary w-100">
+
+Download Inventory
+
+</a>
+
+</div>
+
+<div class="col-md-4">
+
+<a
+
+href="/download_predictions"
+
+class="btn btn-info w-100">
+
+Download Prediction
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer class="footer mt-5">
+
+<p>
+
+© 2026 AI Inventory Management System
+
+</p>
+
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+
+const form=document.getElementById("uploadForm");
+
+const progress=document.getElementById("progressContainer");
+
+const bar=document.getElementById("progressBar");
+
+const button=document.getElementById("uploadButton");
+
+const dropArea=document.getElementById("dropArea");
+
+const fileInput=document.getElementById("fileInput");
+
+/* ===========================
+Drag & Drop
+=========================== */
+
+["dragenter","dragover"].forEach(event=>{
+
+dropArea.addEventListener(event,function(e){
+
+e.preventDefault();
+
+dropArea.classList.add("border-primary");
+
+});
+
+});
+
+["dragleave","drop"].forEach(event=>{
+
+dropArea.addEventListener(event,function(e){
+
+e.preventDefault();
+
+dropArea.classList.remove("border-primary");
+
+});
+
+});
+
+dropArea.addEventListener("drop",function(e){
+
+fileInput.files=e.dataTransfer.files;
+
+});
+
+/* ===========================
+Upload Progress
+=========================== */
+
+form.addEventListener("submit",function(){
+
+button.disabled=true;
+
+button.innerHTML="<i class='fas fa-spinner fa-spin'></i> Processing...";
+
+progress.style.display="block";
+
+let value=0;
+
+const timer=setInterval(function(){
+
+value+=5;
+
+bar.style.width=value+"%";
+
+bar.innerHTML=value+"%";
+
+if(value>=100){
+
+clearInterval(timer);
+
+}
+
+},150);
+
+});
+
+</script>
+
+</body>
+
+</html>

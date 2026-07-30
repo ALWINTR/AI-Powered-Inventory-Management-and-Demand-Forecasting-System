@@ -1,0 +1,906 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+body{
+
+    background:#f4f6f9;
+
+    font-family:'Segoe UI',sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+h1,h2,h3,h4,h5,h6{
+
+    font-weight:600;
+
+}
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.login-body{
+
+    background:linear-gradient(
+        135deg,
+        #1f2937,
+        #2563eb
+    );
+
+    height:100vh;
+
+}
+
+.login-body .card{
+
+    border-radius:15px;
+
+    margin-top:100px;
+
+}
+
+.login-body .card-header{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
+
+}
+
+.navbar-brand{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+
+    min-height:100vh;
+
+    background:#212529;
+
+    padding-top:20px;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    color:white;
+
+    padding:14px 18px;
+
+    transition:.3s;
+
+    border-radius:6px;
+
+    margin-bottom:5px;
+
+}
+
+.sidebar a:hover{
+
+    background:#0d6efd;
+
+    color:white;
+
+}
+
+.sidebar i{
+
+    width:25px;
+
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card{
+
+    border:none;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 12px rgba(0,0,0,.1);
+
+    margin-bottom:20px;
+
+}
+
+.card-header{
+
+    font-weight:bold;
+
+}
+
+.card-body h2{
+
+    font-size:34px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.bg-primary{
+
+    background:#2563eb!important;
+
+}
+
+.bg-success{
+
+    background:#16a34a!important;
+
+}
+
+.bg-warning{
+
+    background:#facc15!important;
+
+}
+
+.bg-danger{
+
+    background:#dc2626!important;
+
+}
+
+.bg-secondary{
+
+    background:#6b7280!important;
+
+}
+
+.bg-info{
+
+    background:#0ea5e9!important;
+
+}
+/* =====================================================
+   TABLES
+===================================================== */
+
+.table{
+
+    vertical-align:middle;
+
+    font-size:14px;
+
+}
+
+.table thead{
+
+    background:#212529;
+
+    color:#ffffff;
+
+}
+
+.table-hover tbody tr:hover{
+
+    background:#eef5ff;
+
+}
+
+.table td,
+.table th{
+
+    padding:12px;
+
+}
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}
+
+
+/* =====================================================
+   DATATABLES
+===================================================== */
+
+.dataTables_wrapper .dataTables_filter input{
+
+    border-radius:8px;
+
+    border:1px solid #ced4da;
+
+    padding:6px 10px;
+
+}
+
+.dataTables_wrapper .dataTables_length select{
+
+    border-radius:8px;
+
+}
+
+.dataTables_wrapper .paginate_button{
+
+    border-radius:6px !important;
+
+}
+
+.dataTables_wrapper .dataTables_info{
+
+    padding-top:12px;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn{
+
+    border-radius:8px;
+
+    font-weight:500;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+    transition:.25s;
+
+}
+
+.btn-success{
+
+    background:#16a34a;
+
+}
+
+.btn-danger{
+
+    background:#dc2626;
+
+}
+
+.btn-warning{
+
+    color:#000;
+
+}
+
+.btn-primary{
+
+    background:#2563eb;
+
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge{
+
+    font-size:13px;
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+}
+
+.badge.bg-success{
+
+    background:#16a34a!important;
+
+}
+
+.badge.bg-warning{
+
+    color:#000;
+
+}
+
+.badge.bg-danger{
+
+    background:#dc2626!important;
+
+}
+
+.badge.bg-secondary{
+
+    background:#6b7280!important;
+
+}
+
+.badge.bg-info{
+
+    background:#0ea5e9!important;
+
+}
+
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.alert{
+
+    border-radius:10px;
+
+    font-weight:500;
+
+}
+
+.alert-success{
+
+    background:#ecfdf5;
+
+}
+
+.alert-danger{
+
+    background:#fee2e2;
+
+}
+
+.alert-warning{
+
+    background:#fef9c3;
+
+}
+
+
+/* =====================================================
+   CHART CARDS
+===================================================== */
+
+canvas{
+
+    max-width:100%;
+
+}
+
+.card canvas{
+
+    padding:10px;
+
+}
+
+
+/* =====================================================
+   UPLOAD PAGE
+===================================================== */
+
+.upload-box{
+
+    border:2px dashed #0d6efd;
+
+    border-radius:15px;
+
+    padding:40px;
+
+    background:white;
+
+    text-align:center;
+
+}
+
+.upload-box:hover{
+
+    background:#f8fbff;
+
+}
+
+.upload-box input{
+
+    margin-top:20px;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box{
+
+    max-width:350px;
+
+}
+
+.search-box input{
+
+    border-radius:25px;
+
+}
+
+
+/* =====================================================
+   STATUS ROW COLORS
+===================================================== */
+
+.status-ok{
+
+    background:#ecfdf5;
+
+}
+
+.status-stockout{
+
+    background:#fee2e2;
+
+}
+
+.status-purchase{
+
+    background:#fff8db;
+
+}
+
+.status-dead{
+
+    background:#ececec;
+
+}
+
+.status-slow{
+
+    background:#e0f2fe;
+
+}
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode{
+
+    background:#121212;
+
+    color:#f1f1f1;
+
+}
+
+body.dark-mode .card{
+
+    background:#1f1f1f;
+
+    color:#ffffff;
+
+}
+
+body.dark-mode .card-header{
+
+    border-bottom:1px solid #333;
+
+}
+
+body.dark-mode .table{
+
+    color:#ffffff;
+
+}
+
+body.dark-mode .table thead{
+
+    background:#000;
+
+}
+
+body.dark-mode .table-striped tbody tr:nth-child(odd){
+
+    background:#202020;
+
+}
+
+body.dark-mode .table-hover tbody tr:hover{
+
+    background:#303030;
+
+}
+
+body.dark-mode .navbar{
+
+    background:#000 !important;
+
+}
+
+body.dark-mode .sidebar{
+
+    background:#111;
+
+}
+
+body.dark-mode .sidebar a{
+
+    color:#dddddd;
+
+}
+
+body.dark-mode .sidebar a:hover{
+
+    background:#2563eb;
+
+}
+
+body.dark-mode .btn-outline-dark{
+
+    color:#ffffff;
+
+    border-color:#ffffff;
+
+}
+
+body.dark-mode .alert{
+
+    color:#000;
+
+}
+
+
+/* =====================================================
+   CARD ANIMATIONS
+===================================================== */
+
+.card{
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+}
+
+
+/* =====================================================
+   SIDEBAR ANIMATION
+===================================================== */
+
+.sidebar a{
+
+    transition:.3s;
+
+}
+
+.sidebar a:hover{
+
+    padding-left:28px;
+
+}
+
+
+/* =====================================================
+   LOADING SPINNER
+===================================================== */
+
+.loader{
+
+    width:70px;
+
+    height:70px;
+
+    border:8px solid #eeeeee;
+
+    border-top:8px solid #2563eb;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin:auto;
+
+}
+
+@keyframes spin{
+
+0%{
+
+transform:rotate(0deg);
+
+}
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#dddddd;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2563eb;
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    margin-top:40px;
+
+    padding:15px;
+
+    text-align:center;
+
+    background:#212529;
+
+    color:#ffffff;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:992px){
+
+.sidebar{
+
+min-height:auto;
+
+padding-bottom:20px;
+
+}
+
+.sidebar a{
+
+padding:10px;
+
+font-size:15px;
+
+}
+
+.card-body h2{
+
+font-size:28px;
+
+}
+
+.table{
+
+font-size:12px;
+
+}
+
+.btn{
+
+margin-bottom:8px;
+
+width:100%;
+
+}
+
+}
+
+
+@media(max-width:768px){
+
+.navbar-brand{
+
+font-size:18px;
+
+}
+
+.sidebar{
+
+display:none;
+
+}
+
+.col-md-10{
+
+width:100%;
+
+}
+
+.card{
+
+margin-bottom:15px;
+
+}
+
+.card-body{
+
+padding:15px;
+
+}
+
+.table td,
+
+.table th{
+
+padding:8px;
+
+}
+
+}
+
+
+@media(max-width:576px){
+
+body{
+
+font-size:14px;
+
+}
+
+.card-body h2{
+
+font-size:22px;
+
+}
+
+.btn{
+
+font-size:14px;
+
+}
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print{
+
+.navbar,
+
+.sidebar,
+
+.btn,
+
+.dataTables_filter,
+
+.dataTables_paginate,
+
+.dataTables_length,
+
+.footer{
+
+display:none !important;
+
+}
+
+.card{
+
+box-shadow:none;
+
+}
+
+body{
+
+background:#ffffff;
+
+}
+
+.table{
+
+font-size:12px;
+
+}
+
+}
+
+
+/* =====================================================
+   UTILITIES
+===================================================== */
+
+.text-shadow{
+
+text-shadow:1px 1px 2px rgba(0,0,0,.3);
+
+}
+
+.rounded-xl{
+
+border-radius:20px;
+
+}
+
+.shadow-lg-custom{
+
+box-shadow:0 12px 30px rgba(0,0,0,.15);
+
+}
+
+.cursor-pointer{
+
+cursor:pointer;
+
+}
+
+.fade-in{
+
+animation:fadeIn .6s ease-in-out;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}

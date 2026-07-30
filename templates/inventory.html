@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>Inventory</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css"
+rel="stylesheet">
+
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+
+<div class="container-fluid">
+
+<a class="navbar-brand">
+
+📦 Inventory Management
+
+</a>
+
+<div>
+
+<a href="/dashboard"
+class="btn btn-primary">
+
+Dashboard
+
+</a>
+
+<a href="/download_inventory"
+class="btn btn-success">
+
+Download Excel
+
+</a>
+
+<a href="/logout"
+class="btn btn-danger">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<div class="container-fluid mt-4">
+
+<div class="card shadow">
+
+<div class="card-header bg-success text-white">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<h4>
+
+Current Inventory
+
+</h4>
+
+</div>
+
+<div class="col-md-6 text-end">
+
+<button
+
+class="btn btn-light"
+
+onclick="exportTable('inventoryTable','inventory.csv')">
+
+<i class="fas fa-file-csv"></i>
+
+Export CSV
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="table-responsive">
+
+<table
+
+id="inventoryTable"
+
+class="table table-bordered table-striped table-hover">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Date</th>
+
+<th>Item Code</th>
+
+<th>Unit</th>
+
+<th>Opening Stock</th>
+
+<th>Purchase</th>
+
+<th>Sales Return</th>
+
+<th>Purchase Return</th>
+
+<th>Sales</th>
+
+<th>Other Inward</th>
+
+<th>Other Outward</th>
+
+<th>Balance</th>
+
+<th>Month</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for row in inventory %}
+
+<tr>
+
+<td>{{ row.Date }}</td>
+
+<td>{{ row.Itemcode }}</td>
+
+<td>{{ row.Unit }}</td>
+
+<td>{{ row['Op.Stock'] }}</td>
+
+<td>{{ row.Purchase }}</td>
+
+<td>{{ row['Sales Return'] }}</td>
+
+<td>{{ row['Purchase Return'] }}</td>
+
+<td>{{ row.Sales }}</td>
+
+<td>{{ row['Other Inward'] }}</td>
+
+<td>{{ row['Other Outward'] }}</td>
+
+<td>
+
+{% if row.Balance <= 0 %}
+
+<span class="badge bg-danger">
+
+{{ row.Balance }}
+
+</span>
+
+{% elif row.Balance < 10 %}
+
+<span class="badge bg-warning text-dark">
+
+{{ row.Balance }}
+
+</span>
+
+{% else %}
+
+<span class="badge bg-success">
+
+{{ row.Balance }}
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>{{ row.Month }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ===========================================
+INVENTORY SUMMARY
+=========================================== -->
+
+<div class="container-fluid mt-4">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="card border-primary shadow">
+
+<div class="card-body text-center">
+
+<h6>Total Records</h6>
+
+<h2>
+
+{{ inventory|length }}
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-success shadow">
+
+<div class="card-body text-center">
+
+<h6>Available Items</h6>
+
+<h2>
+
+{{ inventory|selectattr("Balance","gt",0)|list|length }}
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-warning shadow">
+
+<div class="card-body text-center">
+
+<h6>Low Stock</h6>
+
+<h2 id="lowStockCount">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-danger shadow">
+
+<div class="card-body text-center">
+
+<h6>Out of Stock</h6>
+
+<h2 id="outStockCount">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===========================================
+FOOTER
+=========================================== -->
+
+<footer class="footer mt-5">
+
+<p>
+
+© 2026 AI Inventory Management System
+
+</p>
+
+</footer>
+
+<!-- ===========================================
+JAVASCRIPT
+=========================================== -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    $("#inventoryTable").DataTable({
+
+        responsive:true,
+
+        pageLength:15,
+
+        order:[[0,"desc"]],
+
+        scrollX:true
+
+    });
+
+    calculateInventoryStats();
+
+});
+
+function calculateInventoryStats(){
+
+    let low = 0;
+
+    let out = 0;
+
+    const rows = $("#inventoryTable tbody tr");
+
+    rows.each(function(){
+
+        const balance = parseFloat($(this).find("td").eq(10).text()) || 0;
+
+        if(balance <= 0){
+
+            out++;
+
+        }
+
+        else if(balance < 10){
+
+            low++;
+
+        }
+
+    });
+
+    $("#lowStockCount").text(low);
+
+    $("#outStockCount").text(out);
+
+}
+
+</script>
+
+</body>
+
+</html>
